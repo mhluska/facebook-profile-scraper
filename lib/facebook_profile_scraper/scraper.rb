@@ -50,26 +50,17 @@ module FacebookProfileScraper
     end
 
     def download_photo
-      tries = 0
+      find('.fbPhotoSnowliftDropdownButton').click
 
-      # TODO(maros): Use something like `wait_for` instead.
-      loop do
-        find('.fbPhotoSnowliftDropdownButton').click
-        begin
-          # This will occur if the image can't be downloaded.
-          # TODO(maros): Resort to scraping the smaller res image instead.
-          if tries > 3
-            break
-          end
-
-          elem = find('a[data-action-type="download_photo"]', visible: true)
-        rescue Capybara::ElementNotFound
-          tries += 1
-          sleep 1
-        else
-          elem.click
-          break
-        end
+      begin
+        find('a[data-action-type="download_photo"]', visible: true).click
+      rescue Capybara::ElementNotFound
+        # TODO(maros): Is there a download method in Capybara `chromedriver`?
+        execute_script("
+          link = document.createElement('a');
+          link.href = document.querySelector('.spotlight').src;
+          link.setAttribute('download', 'download');
+          link.click();")
       end
     end
 
