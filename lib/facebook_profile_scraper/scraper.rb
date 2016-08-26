@@ -1,6 +1,6 @@
 require 'capybara'
 require 'capybara/dsl'
-require 'capybara/poltergeist'
+# require 'capybara/poltergeist'
 require 'dotenv'
 
 Capybara.configure do |config|
