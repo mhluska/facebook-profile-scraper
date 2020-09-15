@@ -19,7 +19,7 @@ FACEBOOK_PASSWORD=
 
 Use the scraper like this:
 
-```
+```rb
 require 'facebook_profile_scraper'
 
 scraper = FacebookProfileScraper::Scraper.new
